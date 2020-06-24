@@ -1,5 +1,6 @@
 package com.example.evalandroid;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -7,8 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
-
-import java.sql.Date;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -61,5 +60,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from "+TABLE_NAME, null);
         return  res;
+    }
+
+    public Integer deleteData (String title) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_NAME, "Titre = ?", new String[] {title});
+    }
+
+    public boolean updateData(String Titre, String Date, String NoteScenario, String NoteRealisation, String NoteMusique, String Critique) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_2, Titre);
+        contentValues.put(COL_3, String.valueOf(Date));
+        contentValues.put(COL_4, NoteScenario);
+        contentValues.put(COL_5, NoteRealisation);
+        contentValues.put(COL_6, NoteMusique);
+        contentValues.put(COL_7, Critique);
+        db.update(TABLE_NAME, contentValues, "Titre = ?", new String[] {Titre});
+        return  true;
     }
 }

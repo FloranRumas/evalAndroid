@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseHelper myDb;
     EditText name, date, noteScenario, noteReal, noteMusic, mail;
     TextView message;
-    Button submit_button, allFilms;
+    Button submit_button, allFilms, delete, update;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +35,13 @@ public class MainActivity extends AppCompatActivity {
         mail = (EditText) findViewById(R.id.mail);
         submit_button = (Button) findViewById(R.id.submit_button);
         allFilms = (Button) findViewById(R.id.allFilms);
+        delete = (Button) findViewById(R.id.delete);
+        update = (Button) findViewById(R.id.update);
 
         insertData();
         displayAll();
+        deleteData();
+        UpdateData();
     }
 
     public void insertData() {
@@ -114,5 +118,38 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this,
                     "Erreur", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void UpdateData(){
+        update.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean isUpdated = myDb.updateData(name.getText().toString(), date.getText().toString(), noteScenario.getText().toString(), noteReal.getText().toString(), noteMusic.getText().toString(), message.getText().toString());
+                        if(isUpdated == true){
+                            Toast.makeText(MainActivity.this, "Data updated", Toast.LENGTH_LONG).show();
+                        }
+                        else
+                            Toast.makeText(MainActivity.this, "Data not updated", Toast.LENGTH_LONG).show();
+
+                    }
+                }
+        );
+    }
+
+    public void deleteData() {
+        delete.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Integer deletedRows = myDb.deleteData(name.getText().toString());
+                        if(deletedRows > 0){
+                            Toast.makeText(MainActivity.this, "Le film a bien été supprimé", Toast.LENGTH_LONG).show();
+                        }
+                        else
+                            Toast.makeText(MainActivity.this, "Une erreur est survenue", Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
     }
 }
