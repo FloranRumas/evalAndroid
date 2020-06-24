@@ -127,10 +127,10 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         boolean isUpdated = myDb.updateData(name.getText().toString(), date.getText().toString(), noteScenario.getText().toString(), noteReal.getText().toString(), noteMusic.getText().toString(), message.getText().toString());
                         if(isUpdated == true){
-                            Toast.makeText(MainActivity.this, "Data updated", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "Le film a bien été modifié", Toast.LENGTH_LONG).show();
                         }
                         else
-                            Toast.makeText(MainActivity.this, "Data not updated", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "Une erreur est survenue", Toast.LENGTH_LONG).show();
 
                     }
                 }
